@@ -353,7 +353,7 @@ a:hover { text-decoration: underline; }
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(var(--line-soft) 1px, transparent 1px);
+  /* background-image: linear-gradient(var(--line-soft) 1px, transparent 1px); */
   background-size: 100% 11px;
   opacity: .8;
 }

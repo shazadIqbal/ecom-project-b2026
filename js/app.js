@@ -66,3 +66,59 @@
    Totals shown in the markup: subtotal $265.00, promo −$26.50,
    shipping Free (ground), HST 13% $31.01, total $269.51.
    ============================================================ */
+
+  let productList = []
+
+window.onload = async function() {
+  
+  let data =  await loadProduct();
+
+  renderProduct(data)
+  productList = data;
+   
+
+};
+
+let searchInput = document.getElementById("searchInput")
+
+searchInput.addEventListener('input',  (event) => {
+   
+  let search = event.target.value;
+  
+  let result = productList.filter((p) => p.title.toLowerCase().includes(search))
+  
+  renderProduct(result)
+
+});
+
+ async function loadProduct(){
+   let data = await fetch("http://localhost:3000/product")
+  .then(response => response.json())
+  return data;
+}
+
+function renderProduct(data){
+  let element = document.getElementById("productGrid");
+  element.innerHTML = ''
+  
+    for(let d of data){
+         element.innerHTML += `
+          <article class="product" data-id="${d.id}" data-category="${d.category}" data-name="${d.title}" data-price="${d.price}" data-rating="4.8" data-stock="in">
+      <div class="thumb">
+       
+        <img src="${d.imageUrl}" alt="" width="200" height="150">
+      </div>
+      <p class="label mb-0">${d.category}</p>
+      <h2 class="product-title"><a href="#" data-action="view">${d.title}</a></h2>
+      <p class="spec mb-0">${d.description}</p>
+      <p class="rating mb-0"><span class="stars">★★★★★</span> <span class="num">4.8</span> <span>(214)</span></p>
+      <p class="mb-0"><span class="price">${d.price}</span></p>
+      
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-2401">Add to cart</button>
+      </div>
+    </article>
+          `
+    }
+  
+}

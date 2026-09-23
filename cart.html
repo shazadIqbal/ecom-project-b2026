@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Your Cart — Northline Supply</title>
+  <meta name="description" content="Review the goods in your cart before checkout.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="i-pack" viewBox="0 0 64 64">
+    <path d="M20 22h24a8 8 0 0 1 8 8v20a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V30a8 8 0 0 1 8-8Z"/>
+    <path d="M24 22v-5a8 8 0 0 1 16 0v5"/>
+    <path d="M24 34h16v11H24z"/>
+  </symbol>
+  <symbol id="i-lamp" viewBox="0 0 64 64">
+    <path d="M14 56h22"/><path d="M25 56V30"/><path d="M25 30 41 18"/>
+    <path d="M36 10h16l4 15H32z"/>
+  </symbol>
+  <symbol id="i-knife" viewBox="0 0 64 64">
+    <path d="M8 42c15-6 28-17 38-31l7 7c-9 14-22 25-37 31z"/>
+    <path d="M6 42h18v9H11a5 5 0 0 1-5-5z"/>
+  </symbol>
+  <symbol id="i-brew" viewBox="0 0 64 64">
+    <path d="M16 14h32l-9 18H25z"/><path d="M28 32v6"/>
+    <path d="M14 42h36v6a10 10 0 0 1-10 10H24a10 10 0 0 1-10-10z"/>
+  </symbol>
+  <symbol id="i-shirt" viewBox="0 0 64 64">
+    <path d="M25 11 12 17l4 11 6-2v25h28V26l6 2 4-11-13-6-4 5h-8z"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+</svg>
+
+<div class="announce">
+  <div class="container-page d-flex flex-wrap justify-content-between gap-2">
+    <span><strong>Free ground shipping</strong> on orders over $75</span>
+    <span class="d-none d-sm-inline">30-day returns · Lifetime hardware repair</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container-page d-flex align-items-center gap-3 py-2">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">N</span>
+      <span>Northline<small>Supply Co. · est. 2014</small></span>
+    </a>
+    <nav class="d-none d-lg-flex align-items-center gap-1 ms-3" aria-label="Departments">
+      <a class="nav-link-top" href="index.html">Catalog</a>
+      <a class="nav-link-top" href="#">Workshop</a>
+      <a class="nav-link-top" href="#">Repairs</a>
+      <a class="nav-link-top" href="#">Journal</a>
+    </nav>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <a class="nav-link-top d-none d-md-inline" href="#" id="accountLink">Account</a>
+      <a class="cart-button" href="cart.html" id="cartLink">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6"/>
+          <circle cx="10" cy="20" r="1.2"/><circle cx="18" cy="20" r="1.2"/>
+        </svg>
+        <span class="d-none d-sm-inline">Cart</span>
+        <span class="cart-count" id="cartCount">3</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container-page">
+
+  <nav aria-label="Breadcrumb" class="pt-3">
+    <ol class="breadcrumb mb-0" style="font-size:.8125rem">
+      <li class="breadcrumb-item"><a href="index.html">Catalog</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Cart</li>
+    </ol>
+  </nav>
+
+  <div class="results-bar">
+    <div>
+      <h1 class="mb-1">Your cart</h1>
+      <p class="text-muted mb-0" style="font-size:.875rem">Items are held for 60 minutes. Stock is not reserved until checkout.</p>
+    </div>
+    <p class="label mb-0"><span class="num" id="cartItemCount">3</span> items</p>
+  </div>
+
+  <div class="row g-4 pb-2">
+
+    <!-- ============ LINE ITEMS ============ -->
+    <div class="col-lg-8">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 class="h6 mb-0">Items in cart</h2>
+          <button class="btn btn-quiet btn-sm" type="button" id="clearCart">Empty cart</button>
+        </div>
+
+        <!-- JS hook: render one .cart-line per item into #cartLines -->
+        <div id="cartLines">
+
+          <div class="cart-line" data-id="NL-2401" data-price="128.00">
+            <div class="thumb"><svg><use href="#i-pack"/></svg></div>
+            <div>
+              <p class="label mb-1">Bags &amp; Carry · SKU NL-2401</p>
+              <h3 class="product-title mb-1"><a href="#">Ridgeline 24L Daypack</a></h3>
+              <p class="spec mb-2">Slate / 1680D ballistic nylon · 980 g</p>
+              <div class="d-flex flex-wrap align-items-center gap-3">
+                <div class="qty" role="group" aria-label="Quantity for Ridgeline 24L Daypack">
+                  <button type="button" data-action="decrement" aria-label="Decrease quantity">−</button>
+                  <label class="visually-hidden" for="qty-NL-2401">Quantity</label>
+                  <input type="number" id="qty-NL-2401" name="qty-NL-2401" value="1" min="1" max="10" inputmode="numeric" data-action="qty">
+                  <button type="button" data-action="increment" aria-label="Increase quantity">+</button>
+                </div>
+                <div class="line-actions">
+                  <button type="button" data-action="save-for-later">Save for later</button>
+                  <button type="button" data-action="remove">Remove</button>
+                </div>
+              </div>
+              <p class="stock in mb-0 mt-2">In stock — ships today</p>
+            </div>
+            <div class="line-total text-end">
+              <p class="price mb-0" data-field="lineTotal">$128.00</p>
+              <p class="spec mb-0">$128.00 each</p>
+            </div>
+          </div>
+
+          <div class="cart-line" data-id="NL-3110" data-price="42.00">
+            <div class="thumb"><svg><use href="#i-lamp"/></svg></div>
+            <div>
+              <p class="label mb-1">Lighting · SKU NL-3110</p>
+              <h3 class="product-title mb-1"><a href="#">Ember Pocket Lantern</a></h3>
+              <p class="spec mb-2">Brass / 200 lm · 40 h runtime · USB-C</p>
+              <div class="d-flex flex-wrap align-items-center gap-3">
+                <div class="qty" role="group" aria-label="Quantity for Ember Pocket Lantern">
+                  <button type="button" data-action="decrement" aria-label="Decrease quantity">−</button>
+                  <label class="visually-hidden" for="qty-NL-3110">Quantity</label>
+                  <input type="number" id="qty-NL-3110" name="qty-NL-3110" value="1" min="1" max="10" inputmode="numeric" data-action="qty">
+                  <button type="button" data-action="increment" aria-label="Increase quantity">+</button>
+                </div>
+                <div class="line-actions">
+                  <button type="button" data-action="save-for-later">Save for later</button>
+                  <button type="button" data-action="remove">Remove</button>
+                </div>
+              </div>
+              <p class="stock in mb-0 mt-2">In stock — ships today</p>
+            </div>
+            <div class="line-total text-end">
+              <p class="price mb-0" data-field="lineTotal">$42.00</p>
+              <p class="spec mb-0">$42.00 each · was $52.00</p>
+            </div>
+          </div>
+
+          <div class="cart-line" data-id="NL-5004" data-price="95.00">
+            <div class="thumb"><svg><use href="#i-knife"/></svg></div>
+            <div>
+              <p class="label mb-1">Tools · SKU NL-5004</p>
+              <h3 class="product-title mb-1"><a href="#">Forge No.4 Pocket Knife</a></h3>
+              <p class="spec mb-2">Green micarta / D2 tool steel · 72 mm blade</p>
+              <div class="d-flex flex-wrap align-items-center gap-3">
+                <div class="qty" role="group" aria-label="Quantity for Forge No.4 Pocket Knife">
+                  <button type="button" data-action="decrement" aria-label="Decrease quantity">−</button>
+                  <label class="visually-hidden" for="qty-NL-5004">Quantity</label>
+                  <input type="number" id="qty-NL-5004" name="qty-NL-5004" value="1" min="1" max="10" inputmode="numeric" data-action="qty">
+                  <button type="button" data-action="increment" aria-label="Increase quantity">+</button>
+                </div>
+                <div class="line-actions">
+                  <button type="button" data-action="save-for-later">Save for later</button>
+                  <button type="button" data-action="remove">Remove</button>
+                </div>
+              </div>
+              <p class="stock low mb-0 mt-2">Engraving adds 2 business days</p>
+            </div>
+            <div class="line-total text-end">
+              <p class="price mb-0" data-field="lineTotal">$95.00</p>
+              <p class="spec mb-0">$95.00 each</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Empty cart state — JS hook: toggle .hidden against #cartLines -->
+      <div class="empty-state mt-3" id="cartEmpty" hidden>
+        <h2 class="mb-2">Your cart is empty</h2>
+        <p class="text-muted mb-3">Nothing here yet. The catalog is a good place to start.</p>
+        <a class="btn btn-accent" href="index.html">Browse the catalog</a>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <a class="btn btn-quiet btn-sm" href="index.html">&larr; Continue shopping</a>
+        <button class="btn btn-ink btn-sm" type="button" id="updateCart">Update cart</button>
+      </div>
+
+      <!-- ============ SAVED FOR LATER ============ -->
+      <section class="panel mt-4" id="savedSection">
+        <div class="panel-head">
+          <h2 class="h6 mb-0">Saved for later</h2>
+          <span class="label"><span class="num" id="savedCount">1</span> item</span>
+        </div>
+        <div id="savedLines">
+          <div class="cart-line" data-id="NL-6510" data-price="132.00">
+            <div class="thumb"><svg><use href="#i-brew"/></svg></div>
+            <div>
+              <p class="label mb-1">Kitchen · SKU NL-6510</p>
+              <h3 class="product-title mb-1"><a href="#">Copperline Kettle 1.2L</a></h3>
+              <p class="spec mb-2">Stainless + copper base · induction-ready</p>
+              <div class="line-actions">
+                <button type="button" data-action="move-to-cart">Move to cart</button>
+                <button type="button" data-action="remove-saved">Remove</button>
+              </div>
+              <p class="stock none mb-0 mt-2">Back in stock Oct 14</p>
+            </div>
+            <div class="line-total text-end">
+              <p class="price mb-0">$132.00</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ ORDER SUMMARY ============ -->
+    <div class="col-lg-4">
+      <aside class="summary">
+        <div class="panel">
+          <div class="panel-head"><h2 class="h6 mb-0">Order summary</h2></div>
+          <div class="panel-body">
+
+            <!-- Promo code -->
+            <form class="mb-3" id="promoForm" autocomplete="off">
+              <label class="form-label" for="promoCode">Promo code</label>
+              <div class="input-group input-group-sm">
+                <input class="form-control" type="text" id="promoCode" name="promo" placeholder="Enter code">
+                <button class="btn btn-ink" type="submit" id="applyPromo">Apply</button>
+              </div>
+              <p class="form-text mb-0" id="promoMessage">Code <strong>REPAIR10</strong> applied — 10% off goods.</p>
+            </form>
+
+            <div class="summary-row">
+              <span>Subtotal (<span class="num" id="summaryCount">3</span> items)</span>
+              <span class="num" id="summarySubtotal">$265.00</span>
+            </div>
+            <div class="summary-row" id="summaryDiscountRow">
+              <span>Promo — REPAIR10</span>
+              <span class="num" id="summaryDiscount" style="color:var(--saffron)">−$26.50</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping <span class="label">Ground</span></span>
+              <span class="num" id="summaryShipping">Free</span>
+            </div>
+            <div class="summary-row">
+              <span>HST (13%)</span>
+              <span class="num" id="summaryTax">$31.01</span>
+            </div>
+            <div class="summary-total">
+              <span class="display-face">Total</span>
+              <span class="num" id="summaryTotal">$269.51</span>
+            </div>
+            <p class="form-text mt-1 mb-3">Duties and taxes calculated at checkout for orders outside Canada.</p>
+
+            <a class="btn btn-accent w-100" href="checkout.html" id="checkoutButton">Proceed to checkout</a>
+            <p class="text-center form-text mt-2 mb-0">or <a href="index.html">keep shopping</a></p>
+          </div>
+        </div>
+
+        <div class="panel mt-3">
+          <div class="panel-body">
+            <ul class="trust-list">
+              <li><svg><use href="#i-check"/></svg><span>Free returns within 30 days, no questions.</span></li>
+              <li><svg><use href="#i-check"/></svg><span>Spare parts stocked for 10 years after a product retires.</span></li>
+              <li><svg><use href="#i-check"/></svg><span>Orders placed before 2pm ET ship the same day.</span></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<!-- ============================================================
+     CART LINE TEMPLATE — clone this in JS to render cart items
+     ============================================================ -->
+<template id="cartLineTemplate">
+  <div class="cart-line" data-id="" data-price="">
+    <div class="thumb"><svg><use href="#i-pack" data-field="icon"/></svg></div>
+    <div>
+      <p class="label mb-1" data-field="meta"></p>
+      <h3 class="product-title mb-1"><a href="#" data-field="name"></a></h3>
+      <p class="spec mb-2" data-field="variant"></p>
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <div class="qty" role="group">
+          <button type="button" data-action="decrement" aria-label="Decrease quantity">−</button>
+          <input type="number" value="1" min="1" max="10" inputmode="numeric" data-action="qty" aria-label="Quantity">
+          <button type="button" data-action="increment" aria-label="Increase quantity">+</button>
+        </div>
+        <div class="line-actions">
+          <button type="button" data-action="save-for-later">Save for later</button>
+          <button type="button" data-action="remove">Remove</button>
+        </div>
+      </div>
+      <p class="stock in mb-0 mt-2" data-field="stock"></p>
+    </div>
+    <div class="line-total text-end">
+      <p class="price mb-0" data-field="lineTotal"></p>
+      <p class="spec mb-0" data-field="unitPrice"></p>
+    </div>
+  </div>
+</template>
+
+<footer class="site-footer">
+  <div class="container-page">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="index.html">Catalog</a></li>
+          <li><a href="#">New arrivals</a></li>
+          <li><a href="#">Last-chance</a></li>
+          <li><a href="#">Gift cards</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Shipping &amp; returns</a></li>
+          <li><a href="#">Repair program</a></li>
+          <li><a href="#">Spare parts</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">Our makers</a></li>
+          <li><a href="#">Materials</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-lg-3">
+        <h3>Restock notices</h3>
+        <p class="mb-2" style="color:#9aa8a3">One note a month when sold-out goods return.</p>
+        <form class="d-flex gap-2" id="newsletterForm" autocomplete="off">
+          <label class="visually-hidden" for="newsletterEmail">Email address</label>
+          <input class="form-control form-control-sm" type="email" id="newsletterEmail" name="email" placeholder="you@example.com">
+          <button class="btn btn-accent btn-sm" type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+      <span>© 2026 Northline Supply Co.</span>
+      <span>Toronto, ON · Prices in CAD</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

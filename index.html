@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Northline Supply — Catalog</title>
+  <meta name="description" content="Everyday carry, lighting, tools and kitchen goods built to be repaired, not replaced.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============================================================
+     ICON SPRITE — referenced with <use href="#i-name">
+     ============================================================ -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="i-pack" viewBox="0 0 64 64">
+    <path d="M20 22h24a8 8 0 0 1 8 8v20a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V30a8 8 0 0 1 8-8Z"/>
+    <path d="M24 22v-5a8 8 0 0 1 16 0v5"/>
+    <path d="M24 34h16v11H24z"/>
+  </symbol>
+  <symbol id="i-lamp" viewBox="0 0 64 64">
+    <path d="M14 56h22"/><path d="M25 56V30"/><path d="M25 30 41 18"/>
+    <path d="M36 10h16l4 15H32z"/>
+  </symbol>
+  <symbol id="i-knife" viewBox="0 0 64 64">
+    <path d="M8 42c15-6 28-17 38-31l7 7c-9 14-22 25-37 31z"/>
+    <path d="M6 42h18v9H11a5 5 0 0 1-5-5z"/>
+  </symbol>
+  <symbol id="i-brew" viewBox="0 0 64 64">
+    <path d="M16 14h32l-9 18H25z"/><path d="M28 32v6"/>
+    <path d="M14 42h36v6a10 10 0 0 1-10 10H24a10 10 0 0 1-10-10z"/>
+  </symbol>
+  <symbol id="i-shirt" viewBox="0 0 64 64">
+    <path d="M25 11 12 17l4 11 6-2v25h28V26l6 2 4-11-13-6-4 5h-8z"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+</svg>
+
+<!-- ============================================================
+     ANNOUNCEMENT
+     ============================================================ -->
+<div class="announce">
+  <div class="container-page d-flex flex-wrap justify-content-between gap-2">
+    <span><strong>Free ground shipping</strong> on orders over $75</span>
+    <span class="d-none d-sm-inline">30-day returns · Lifetime hardware repair</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header">
+  <div class="container-page d-flex align-items-center gap-3 py-2">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">N</span>
+      <span>Northline<small>Supply Co. · est. 2014</small></span>
+    </a>
+
+    <nav class="d-none d-lg-flex align-items-center gap-1 ms-3" aria-label="Departments">
+      <a class="nav-link-top active" href="index.html">Catalog</a>
+      <a class="nav-link-top" href="#">Workshop</a>
+      <a class="nav-link-top" href="#">Repairs</a>
+      <a class="nav-link-top" href="#">Journal</a>
+    </nav>
+
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <a class="nav-link-top d-none d-md-inline" href="#" id="accountLink">Account</a>
+      <!-- JS hook: update #cartCount from cart state -->
+      <a class="cart-button" href="cart.html" id="cartLink">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 8H6"/>
+          <circle cx="10" cy="20" r="1.2"/><circle cx="18" cy="20" r="1.2"/>
+        </svg>
+        <span class="d-none d-sm-inline">Cart</span>
+        <span class="cart-count" id="cartCount">3</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     TOOLBAR — search, category dropdown, sort button
+     ============================================================ -->
+<section class="toolbar">
+  <div class="container-page">
+    <form class="d-flex flex-wrap gap-2 align-items-stretch" id="filterForm" role="search" autocomplete="off">
+
+      <!-- SEARCH -->
+      <div class="search-field">
+        <span class="search-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/>
+          </svg>
+        </span>
+        <label class="visually-hidden" for="searchInput">Search the catalog</label>
+        <input class="form-control" type="search" id="searchInput" name="q"
+               placeholder="Search packs, lamps, tools…" value="">
+        <button class="search-clear" type="button" id="searchClear" aria-label="Clear search" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <!-- CATEGORY DROPDOWN -->
+      <div class="dropdown">
+        <button class="btn btn-ink dropdown-toggle" type="button" id="categoryDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          <span>
+            <span class="label">Category</span>
+            <span class="val" id="categoryLabel">All categories</span>
+          </span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdown" id="categoryMenu">
+          <li><button class="dropdown-item active" type="button" data-category="all">All categories <span class="count">10</span></button></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><button class="dropdown-item" type="button" data-category="bags">Bags &amp; Carry <span class="count">2</span></button></li>
+          <li><button class="dropdown-item" type="button" data-category="lighting">Lighting <span class="count">2</span></button></li>
+          <li><button class="dropdown-item" type="button" data-category="tools">Tools <span class="count">2</span></button></li>
+          <li><button class="dropdown-item" type="button" data-category="kitchen">Kitchen <span class="count">2</span></button></li>
+          <li><button class="dropdown-item" type="button" data-category="apparel">Apparel <span class="count">2</span></button></li>
+        </ul>
+        <!-- JS hook: mirror the chosen value here so the form can be read in one place -->
+        <input type="hidden" name="category" id="categoryValue" value="all">
+      </div>
+
+      <!-- SORT BUTTON -->
+      <div class="dropdown">
+        <button class="btn btn-ink dropdown-toggle" type="button" id="sortDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          <span>
+            <span class="label">Sort by</span>
+            <span class="val" id="sortLabel">Featured</span>
+          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown" id="sortMenu">
+          <li><button class="dropdown-item active" type="button" data-sort="featured">Featured</button></li>
+          <li><button class="dropdown-item" type="button" data-sort="price-asc">Price — low to high</button></li>
+          <li><button class="dropdown-item" type="button" data-sort="price-desc">Price — high to low</button></li>
+          <li><button class="dropdown-item" type="button" data-sort="rating-desc">Customer rating</button></li>
+          <li><button class="dropdown-item" type="button" data-sort="name-asc">Name — A to Z</button></li>
+          <li><button class="dropdown-item" type="button" data-sort="newest">Newest arrivals</button></li>
+        </ul>
+        <input type="hidden" name="sort" id="sortValue" value="featured">
+      </div>
+
+      <button class="btn btn-quiet align-self-center" type="button" id="resetFilters">Reset</button>
+    </form>
+
+    <!-- Active filter chips — JS hook: render one .chip per active filter, then unhide.
+         Chip shape: <span class="chip" data-filter="category">Lighting <button type="button" aria-label="Remove filter">&times;</button></span> -->
+    <div class="d-flex flex-wrap gap-2 mt-2" id="activeFilters" hidden></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CATALOG
+     ============================================================ -->
+<main class="container-page">
+
+  <div class="results-bar">
+    <div>
+      <h1 class="mb-1">Everyday catalog</h1>
+      <p class="text-muted mb-0" style="font-size:.875rem">Goods we stock parts for. Every item ships with its own repair sheet.</p>
+    </div>
+    <p class="label mb-0">Showing <span class="num" id="resultCount">10</span> of <span class="num" id="resultTotal">10</span> products</p>
+  </div>
+
+  <!-- JS hook: clear #productGrid and render from #productCardTemplate -->
+  <div class="product-grid" id="productGrid">
+
+    <article class="product" data-id="NL-2401" data-category="bags" data-name="Ridgeline 24L Daypack" data-price="128.00" data-rating="4.8" data-stock="in">
+      <div class="thumb">
+        <span class="badge-flag new">New</span>
+        <button class="wishlist" type="button" aria-label="Save Ridgeline 24L Daypack" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-pack"/></svg>
+      </div>
+      <p class="label mb-0">Bags &amp; Carry</p>
+      <h2 class="product-title"><a href="#" data-action="view">Ridgeline 24L Daypack</a></h2>
+      <p class="spec mb-0">1680D ballistic nylon · 980 g · YKK Aquaguard</p>
+      <p class="rating mb-0"><span class="stars">★★★★★</span> <span class="num">4.8</span> <span>(214)</span></p>
+      <p class="mb-0"><span class="price">$128.00</span></p>
+      <p class="stock in mb-0">In stock — ships today</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-2401">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-2418" data-category="bags" data-name="Meridian Field Tote" data-price="86.00" data-rating="4.6" data-stock="in">
+      <div class="thumb">
+        <button class="wishlist" type="button" aria-label="Save Meridian Field Tote" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-pack"/></svg>
+      </div>
+      <p class="label mb-0">Bags &amp; Carry</p>
+      <h2 class="product-title"><a href="#" data-action="view">Meridian Field Tote</a></h2>
+      <p class="spec mb-0">18 oz waxed canvas · 22 L · leather handles</p>
+      <p class="rating mb-0"><span class="stars">★★★★☆</span> <span class="num">4.6</span> <span>(88)</span></p>
+      <p class="mb-0"><span class="price">$86.00</span></p>
+      <p class="stock in mb-0">In stock — ships today</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-2418">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-3102" data-category="lighting" data-name="Halyard Task Lamp" data-price="164.00" data-rating="4.9" data-stock="low">
+      <div class="thumb">
+        <button class="wishlist" type="button" aria-label="Save Halyard Task Lamp" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-lamp"/></svg>
+      </div>
+      <p class="label mb-0">Lighting</p>
+      <h2 class="product-title"><a href="#" data-action="view">Halyard Task Lamp</a></h2>
+      <p class="spec mb-0">2700K · 480 lm · stepless dimming</p>
+      <p class="rating mb-0"><span class="stars">★★★★★</span> <span class="num">4.9</span> <span>(132)</span></p>
+      <p class="mb-0"><span class="price">$164.00</span></p>
+      <p class="stock low mb-0">Only 4 left</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-3102">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-3110" data-category="lighting" data-name="Ember Pocket Lantern" data-price="42.00" data-rating="4.4" data-stock="in">
+      <div class="thumb">
+        <span class="badge-flag sale">Save 19%</span>
+        <button class="wishlist" type="button" aria-label="Save Ember Pocket Lantern" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-lamp"/></svg>
+      </div>
+      <p class="label mb-0">Lighting</p>
+      <h2 class="product-title"><a href="#" data-action="view">Ember Pocket Lantern</a></h2>
+      <p class="spec mb-0">200 lm · 40 h runtime · USB-C</p>
+      <p class="rating mb-0"><span class="stars">★★★★☆</span> <span class="num">4.4</span> <span>(310)</span></p>
+      <p class="mb-0"><span class="price sale">$42.00</span><span class="price-was">$52.00</span></p>
+      <p class="stock in mb-0">In stock — ships today</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-3110">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-5004" data-category="tools" data-name="Forge No.4 Pocket Knife" data-price="95.00" data-rating="4.7" data-stock="in">
+      <div class="thumb">
+        <button class="wishlist" type="button" aria-label="Save Forge No.4 Pocket Knife" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-knife"/></svg>
+      </div>
+      <p class="label mb-0">Tools</p>
+      <h2 class="product-title"><a href="#" data-action="view">Forge No.4 Pocket Knife</a></h2>
+      <p class="spec mb-0">D2 tool steel · 72 mm blade · micarta scales</p>
+      <p class="rating mb-0"><span class="stars">★★★★★</span> <span class="num">4.7</span> <span>(196)</span></p>
+      <p class="mb-0"><span class="price">$95.00</span></p>
+      <p class="stock in mb-0">In stock — ships today</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-5004">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-5121" data-category="tools" data-name="Carbon Bit Driver Set" data-price="58.00" data-rating="4.5" data-stock="in">
+      <div class="thumb">
+        <button class="wishlist" type="button" aria-label="Save Carbon Bit Driver Set" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-knife"/></svg>
+      </div>
+      <p class="label mb-0">Tools</p>
+      <h2 class="product-title"><a href="#" data-action="view">Carbon Bit Driver Set</a></h2>
+      <p class="spec mb-0">24 bits · S2 steel · magnetic shaft</p>
+      <p class="rating mb-0"><span class="stars">★★★★☆</span> <span class="num">4.5</span> <span>(74)</span></p>
+      <p class="mb-0"><span class="price">$58.00</span></p>
+      <p class="stock in mb-0">In stock — ships today</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-5121">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-6402" data-category="kitchen" data-name="Basalt Pour-Over Set" data-price="74.00" data-rating="4.6" data-stock="in">
+      <div class="thumb">
+        <button class="wishlist" type="button" aria-label="Save Basalt Pour-Over Set" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-brew"/></svg>
+      </div>
+      <p class="label mb-0">Kitchen</p>
+      <h2 class="product-title"><a href="#" data-action="view">Basalt Pour-Over Set</a></h2>
+      <p class="spec mb-0">Matte stoneware · 600 ml · cone + carafe</p>
+      <p class="rating mb-0"><span class="stars">★★★★☆</span> <span class="num">4.6</span> <span>(151)</span></p>
+      <p class="mb-0"><span class="price">$74.00</span></p>
+      <p class="stock in mb-0">In stock — ships today</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-6402">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-6510" data-category="kitchen" data-name="Copperline Kettle 1.2L" data-price="132.00" data-rating="4.8" data-stock="none">
+      <div class="thumb">
+        <span class="badge-flag out">Sold out</span>
+        <button class="wishlist" type="button" aria-label="Save Copperline Kettle 1.2L" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-brew"/></svg>
+      </div>
+      <p class="label mb-0">Kitchen</p>
+      <h2 class="product-title"><a href="#" data-action="view">Copperline Kettle 1.2L</a></h2>
+      <p class="spec mb-0">Stainless + copper base · induction-ready</p>
+      <p class="rating mb-0"><span class="stars">★★★★★</span> <span class="num">4.8</span> <span>(97)</span></p>
+      <p class="mb-0"><span class="price">$132.00</span></p>
+      <p class="stock none mb-0">Back in stock Oct 14</p>
+      <div class="product-foot">
+        <button class="btn btn-ink" type="button" data-action="notify" data-id="NL-6510">Notify me</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-7208" data-category="apparel" data-name="Shoal Merino Crew" data-price="94.00" data-rating="4.5" data-stock="low">
+      <div class="thumb">
+        <button class="wishlist" type="button" aria-label="Save Shoal Merino Crew" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-shirt"/></svg>
+      </div>
+      <p class="label mb-0">Apparel</p>
+      <h2 class="product-title"><a href="#" data-action="view">Shoal Merino Crew</a></h2>
+      <p class="spec mb-0">18.5 micron merino · 220 gsm · S–XXL</p>
+      <p class="rating mb-0"><span class="stars">★★★★☆</span> <span class="num">4.5</span> <span>(268)</span></p>
+      <p class="mb-0"><span class="price">$94.00</span></p>
+      <p class="stock low mb-0">Only 6 left</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-7208">Add to cart</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="NL-7315" data-category="apparel" data-name="Drift Chore Jacket" data-price="186.00" data-rating="4.7" data-stock="in">
+      <div class="thumb">
+        <span class="badge-flag">Made in Ontario</span>
+        <button class="wishlist" type="button" aria-label="Save Drift Chore Jacket" data-action="wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+        </button>
+        <svg><use href="#i-shirt"/></svg>
+      </div>
+      <p class="label mb-0">Apparel</p>
+      <h2 class="product-title"><a href="#" data-action="view">Drift Chore Jacket</a></h2>
+      <p class="spec mb-0">12 oz duck cotton · triple-stitched · 4 pockets</p>
+      <p class="rating mb-0"><span class="stars">★★★★★</span> <span class="num">4.7</span> <span>(59)</span></p>
+      <p class="mb-0"><span class="price">$186.00</span></p>
+      <p class="stock in mb-0">In stock — ships today</p>
+      <div class="product-foot">
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-7315">Add to cart</button>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- Shown when a search or filter returns nothing. JS hook: toggle .hidden -->
+  <div class="empty-state mt-3" id="emptyState" hidden>
+    <h2 class="mb-2">No products match that search</h2>
+    <p class="text-muted mb-3">Try a shorter term, or clear the category filter.</p>
+    <button class="btn btn-ink" type="button" data-action="reset-filters">Clear all filters</button>
+  </div>
+
+  <!-- Pagination — JS hook: rebuild from page state -->
+  <nav class="d-flex justify-content-center mt-4" aria-label="Catalog pages" id="pagination">
+    <ul class="pagination pagination-sm mb-0">
+      <li class="page-item disabled"><a class="page-link" href="#" data-page="prev">Previous</a></li>
+      <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+      <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+      <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li>
+      <li class="page-item"><a class="page-link" href="#" data-page="next">Next</a></li>
+    </ul>
+  </nav>
+</main>
+
+<!-- ============================================================
+     CARD TEMPLATE — clone this in JS to render products
+     ============================================================ -->
+<template id="productCardTemplate">
+  <article class="product" data-id="" data-category="" data-name="" data-price="" data-rating="" data-stock="">
+    <div class="thumb">
+      <span class="badge-flag" data-field="flag" hidden></span>
+      <button class="wishlist" type="button" data-action="wishlist" aria-label="Save product">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.6-7-9.4A4.1 4.1 0 0 1 12 7.8a4.1 4.1 0 0 1 7 2.8C19 15.4 12 20 12 20Z"/></svg>
+      </button>
+      <svg><use href="#i-pack" data-field="icon"/></svg>
+    </div>
+    <p class="label mb-0" data-field="category"></p>
+    <h2 class="product-title"><a href="#" data-field="name" data-action="view"></a></h2>
+    <p class="spec mb-0" data-field="spec"></p>
+    <p class="rating mb-0"><span class="stars" data-field="stars"></span> <span class="num" data-field="rating"></span> <span data-field="reviews"></span></p>
+    <p class="mb-0"><span class="price" data-field="price"></span><span class="price-was" data-field="compareAt" hidden></span></p>
+    <p class="stock in mb-0" data-field="stock"></p>
+    <div class="product-foot">
+      <button class="btn btn-accent" type="button" data-action="add-to-cart">Add to cart</button>
+    </div>
+  </article>
+</template>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container-page">
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="index.html">Catalog</a></li>
+          <li><a href="#">New arrivals</a></li>
+          <li><a href="#">Last-chance</a></li>
+          <li><a href="#">Gift cards</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Shipping &amp; returns</a></li>
+          <li><a href="#">Repair program</a></li>
+          <li><a href="#">Spare parts</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">Our makers</a></li>
+          <li><a href="#">Materials</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-lg-3">
+        <h3>Restock notices</h3>
+        <p class="mb-2" style="color:#9aa8a3">One note a month when sold-out goods return.</p>
+        <form class="d-flex gap-2" id="newsletterForm" autocomplete="off">
+          <label class="visually-hidden" for="newsletterEmail">Email address</label>
+          <input class="form-control form-control-sm" type="email" id="newsletterEmail" name="email" placeholder="you@example.com">
+          <button class="btn btn-accent btn-sm" type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+      <span>© 2026 Northline Supply Co.</span>
+      <span>Toronto, ON · Prices in CAD</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

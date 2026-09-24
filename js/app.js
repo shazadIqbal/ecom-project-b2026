@@ -72,9 +72,12 @@
 window.onload = async function() {
   
   let data =  await loadProduct();
-
   renderProduct(data)
   productList = data;
+
+
+  loadCategory()
+
    
 
 };
@@ -121,4 +124,40 @@ function renderProduct(data){
           `
     }
   
+}
+
+
+function loadCategory(){
+    
+  fetch('http://localhost:3000/category')
+    .then((res)=>res.json())
+    .then((data)=>{
+        renderCategory(data)
+    })
+
+}
+
+
+function renderCategory(data){
+  let element = document.getElementById("categoryMenu")
+    data.forEach((d) => {
+
+       element.innerHTML += `
+                 <li><button class="dropdown-item" type="button" id=${d.id} onclick="onCategoryChange('${d.name}')" > ${d.name} </button></li>
+       `
+
+    });
+
+
+}
+
+function onCategoryChange(name){
+  
+  fetch(`http://localhost:3000/product?category=${name}`)
+  .then((res)=>res.json())
+  .then((data)=>{
+    renderProduct(data)
+  })
+  
+
 }

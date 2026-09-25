@@ -99,85 +99,9 @@
         </div>
 
         <!-- JS hook: render one .cart-line per item into #cartLines -->
-        <div id="cartLines">
+        <div id="cartLines" >
 
-          <div class="cart-line" data-id="NL-2401" data-price="128.00">
-            <div class="thumb"><svg><use href="#i-pack"/></svg></div>
-            <div>
-              <p class="label mb-1">Bags &amp; Carry · SKU NL-2401</p>
-              <h3 class="product-title mb-1"><a href="#">Ridgeline 24L Daypack</a></h3>
-              <p class="spec mb-2">Slate / 1680D ballistic nylon · 980 g</p>
-              <div class="d-flex flex-wrap align-items-center gap-3">
-                <div class="qty" role="group" aria-label="Quantity for Ridgeline 24L Daypack">
-                  <button type="button" data-action="decrement" aria-label="Decrease quantity">−</button>
-                  <label class="visually-hidden" for="qty-NL-2401">Quantity</label>
-                  <input type="number" id="qty-NL-2401" name="qty-NL-2401" value="1" min="1" max="10" inputmode="numeric" data-action="qty">
-                  <button type="button" data-action="increment" aria-label="Increase quantity">+</button>
-                </div>
-                <div class="line-actions">
-                  <button type="button" data-action="save-for-later">Save for later</button>
-                  <button type="button" data-action="remove">Remove</button>
-                </div>
-              </div>
-              <p class="stock in mb-0 mt-2">In stock — ships today</p>
-            </div>
-            <div class="line-total text-end">
-              <p class="price mb-0" data-field="lineTotal">$128.00</p>
-              <p class="spec mb-0">$128.00 each</p>
-            </div>
-          </div>
-
-          <div class="cart-line" data-id="NL-3110" data-price="42.00">
-            <div class="thumb"><svg><use href="#i-lamp"/></svg></div>
-            <div>
-              <p class="label mb-1">Lighting · SKU NL-3110</p>
-              <h3 class="product-title mb-1"><a href="#">Ember Pocket Lantern</a></h3>
-              <p class="spec mb-2">Brass / 200 lm · 40 h runtime · USB-C</p>
-              <div class="d-flex flex-wrap align-items-center gap-3">
-                <div class="qty" role="group" aria-label="Quantity for Ember Pocket Lantern">
-                  <button type="button" data-action="decrement" aria-label="Decrease quantity">−</button>
-                  <label class="visually-hidden" for="qty-NL-3110">Quantity</label>
-                  <input type="number" id="qty-NL-3110" name="qty-NL-3110" value="1" min="1" max="10" inputmode="numeric" data-action="qty">
-                  <button type="button" data-action="increment" aria-label="Increase quantity">+</button>
-                </div>
-                <div class="line-actions">
-                  <button type="button" data-action="save-for-later">Save for later</button>
-                  <button type="button" data-action="remove">Remove</button>
-                </div>
-              </div>
-              <p class="stock in mb-0 mt-2">In stock — ships today</p>
-            </div>
-            <div class="line-total text-end">
-              <p class="price mb-0" data-field="lineTotal">$42.00</p>
-              <p class="spec mb-0">$42.00 each · was $52.00</p>
-            </div>
-          </div>
-
-          <div class="cart-line" data-id="NL-5004" data-price="95.00">
-            <div class="thumb"><svg><use href="#i-knife"/></svg></div>
-            <div>
-              <p class="label mb-1">Tools · SKU NL-5004</p>
-              <h3 class="product-title mb-1"><a href="#">Forge No.4 Pocket Knife</a></h3>
-              <p class="spec mb-2">Green micarta / D2 tool steel · 72 mm blade</p>
-              <div class="d-flex flex-wrap align-items-center gap-3">
-                <div class="qty" role="group" aria-label="Quantity for Forge No.4 Pocket Knife">
-                  <button type="button" data-action="decrement" aria-label="Decrease quantity">−</button>
-                  <label class="visually-hidden" for="qty-NL-5004">Quantity</label>
-                  <input type="number" id="qty-NL-5004" name="qty-NL-5004" value="1" min="1" max="10" inputmode="numeric" data-action="qty">
-                  <button type="button" data-action="increment" aria-label="Increase quantity">+</button>
-                </div>
-                <div class="line-actions">
-                  <button type="button" data-action="save-for-later">Save for later</button>
-                  <button type="button" data-action="remove">Remove</button>
-                </div>
-              </div>
-              <p class="stock low mb-0 mt-2">Engraving adds 2 business days</p>
-            </div>
-            <div class="line-total text-end">
-              <p class="price mb-0" data-field="lineTotal">$95.00</p>
-              <p class="spec mb-0">$95.00 each</p>
-            </div>
-          </div>
+        
 
         </div>
       </div>
@@ -194,31 +118,7 @@
         <button class="btn btn-ink btn-sm" type="button" id="updateCart">Update cart</button>
       </div>
 
-      <!-- ============ SAVED FOR LATER ============ -->
-      <section class="panel mt-4" id="savedSection">
-        <div class="panel-head">
-          <h2 class="h6 mb-0">Saved for later</h2>
-          <span class="label"><span class="num" id="savedCount">1</span> item</span>
-        </div>
-        <div id="savedLines">
-          <div class="cart-line" data-id="NL-6510" data-price="132.00">
-            <div class="thumb"><svg><use href="#i-brew"/></svg></div>
-            <div>
-              <p class="label mb-1">Kitchen · SKU NL-6510</p>
-              <h3 class="product-title mb-1"><a href="#">Copperline Kettle 1.2L</a></h3>
-              <p class="spec mb-2">Stainless + copper base · induction-ready</p>
-              <div class="line-actions">
-                <button type="button" data-action="move-to-cart">Move to cart</button>
-                <button type="button" data-action="remove-saved">Remove</button>
-              </div>
-              <p class="stock none mb-0 mt-2">Back in stock Oct 14</p>
-            </div>
-            <div class="line-total text-end">
-              <p class="price mb-0">$132.00</p>
-            </div>
-          </div>
-        </div>
-      </section>
+    
     </div>
 
     <!-- ============ ORDER SUMMARY ============ -->
@@ -356,6 +256,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/app.js"></script>
+<script src="js/cart.js"></script>
 </body>
 </html>

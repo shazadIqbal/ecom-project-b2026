@@ -67,45 +67,45 @@
    shipping Free (ground), HST 13% $31.01, total $269.51.
    ============================================================ */
 
-  let productList = []
+let productList = []
 
-window.onload = async function() {
-  
-  let data =  await loadProduct();
+window.onload = async function () {
+
+  let data = await loadProduct();
   renderProduct(data)
   productList = data;
 
 
   loadCategory()
 
-   
+
 
 };
 
 let searchInput = document.getElementById("searchInput")
 
-searchInput.addEventListener('input',  (event) => {
-   
+searchInput.addEventListener('input', (event) => {
+
   let search = event.target.value;
-  
+
   let result = productList.filter((p) => p.title.toLowerCase().includes(search))
-  
+
   renderProduct(result)
 
 });
 
- async function loadProduct(){
-   let data = await fetch("http://localhost:3000/product")
-  .then(response => response.json())
+async function loadProduct() {
+  let data = await fetch("http://localhost:3000/product")
+    .then(response => response.json())
   return data;
 }
 
-function renderProduct(data){
+function renderProduct(data) {
   let element = document.getElementById("productGrid");
   element.innerHTML = ''
-  
-    for(let d of data){
-         element.innerHTML += `
+
+  for (let d of data) {
+    element.innerHTML += `
           <article class="product" data-id="${d.id}" data-category="${d.category}" data-name="${d.title}" data-price="${d.price}" data-rating="4.8" data-stock="in">
       <div class="thumb">
        
@@ -118,46 +118,68 @@ function renderProduct(data){
       <p class="mb-0"><span class="price">${d.price}</span></p>
       
       <div class="product-foot">
-        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="NL-2401">Add to cart</button>
+        <button class="btn btn-accent" type="button" data-action="add-to-cart" data-id="${d.id}" onclick=addToCart('${d.id}') >Add to cart</button>
       </div>
     </article>
           `
-    }
-  
+  }
+
 }
 
 
-function loadCategory(){
-    
+function loadCategory() {
+
   fetch('http://localhost:3000/category')
-    .then((res)=>res.json())
-    .then((data)=>{
-        renderCategory(data)
+    .then((res) => res.json())
+    .then((data) => {
+      renderCategory(data)
     })
 
 }
 
 
-function renderCategory(data){
+function renderCategory(data) {
   let element = document.getElementById("categoryMenu")
-    data.forEach((d) => {
+  data.forEach((d) => {
 
-       element.innerHTML += `
+    element.innerHTML += `
                  <li><button class="dropdown-item" type="button" id=${d.id} onclick="onCategoryChange('${d.name}')" > ${d.name} </button></li>
        `
 
-    });
+  });
 
 
 }
 
-function onCategoryChange(name){
-  
+function onCategoryChange(name) {
+
   fetch(`http://localhost:3000/product?category=${name}`)
-  .then((res)=>res.json())
-  .then((data)=>{
-    renderProduct(data)
-  })
-  
+    .then((res) => res.json())
+    .then((data) => {
+      renderProduct(data)
+    })
+
 
 }
+
+function addToCart(productId) {
+
+  let product = productList.find((p) => p.id === productId)
+
+  if (product.qty) {
+    product.qty++;
+  } else {
+    product.qty = 1;
+  }
+
+  fetch('http://localhost:3000/cart', {
+    method: "POST",
+    body: JSON.stringify(product)
+  }).then(res => res.json())
+    .then((data) => {
+      console.log("Added into cart")
+    })
+
+}
+
+
